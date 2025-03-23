@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "azure_triggers_bindings": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7269",
+      "launchBrowser": false
+    }
+  }
+}
