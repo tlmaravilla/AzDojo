@@ -8,6 +8,11 @@
     <RootNamespace>azure_triggers_bindings</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="devops\terraform\NewFolder\**" />
+    <EmbeddedResource Remove="devops\terraform\NewFolder\**" />
+    <None Remove="devops\terraform\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <!-- Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4. -->
     <!-- <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" /> -->

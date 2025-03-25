@@ -1,0 +1,72 @@
+{
+  "projectType": "azd",
+  "iacTypes": [
+    "bicep",
+    "terraform"
+  ],
+  "resources": [
+    {
+      "type": "azurecontainerapp",
+      "instances": [
+        {
+          "name": "azuretriggersbindings"
+        }
+      ]
+    },
+    {
+      "type": "azureapplicationinsights",
+      "instances": [
+        {
+          "name": "insights0"
+        }
+      ]
+    },
+    {
+      "type": "azurestorageaccount",
+      "instances": [
+        {
+          "name": "account0"
+        }
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "source": "${azurecontainerapp.azuretriggersbindings}",
+      "target": "${azureapplicationinsights.insights0}",
+      "connection": "secret",
+      "store": "",
+      "customKeys": {
+        "AZURE_APPINSIGHTS_CONNECTION_STRING": "AZURE_APPINSIGHTS_CONNECTION_STRING"
+      }
+    },
+    {
+      "source": "${azurecontainerapp.azuretriggersbindings}",
+      "target": "${azurestorageaccount.account0}",
+      "connection": "secret",
+      "store": "",
+      "customKeys": {
+        "AZURE_STORAGE_CONNECTIONSTRING": "AzureWebJobsStorage"
+      }
+    }
+  ],
+  "services": [
+    {
+      "host": "${azurecontainerapp.azuretriggersbindings}",
+      "language": "dotnet",
+      "project": "src/azure-triggers-bindings/",
+      "port": "80"
+    }
+  ],
+  "settings": [
+    {
+      "resource": "${azurecontainerapp.azuretriggersbindings}",
+      "envs": [
+        {
+          "name": "FUNCTIONS_WORKER_RUNTIME",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}
